@@ -128,6 +128,21 @@
       letter-spacing: 0.05em;
       transition: background 0.15s;
     }
+
+    @media (max-width: 760px) {
+      .layout {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .canvas-wrap {
+        width: min(460px, 94vw);
+      }
+
+      .controls {
+        width: min(460px, 94vw);
+      }
+    }
   </style>
 </head>
 <body>
@@ -146,7 +161,7 @@
 
       <div class="group">
         <p class="group-title">Rotate</p>
-        <button id="rotate-left">↺ −45°</button>
+        <button id="rotate-left">↺ -45°</button>
         <button id="rotate-right">↻ +45°</button>
       </div>
 
@@ -215,7 +230,7 @@
       };
     }
 
-    function sideBtnStyle(btn, disabled, isReset = false) {
+    function styleButton(btn, disabled, isReset = false) {
       btn.disabled = disabled;
       btn.style.background = disabled ? "#f5f5f5" : isReset ? "#fff5f5" : "#fff";
       btn.style.border = `1px solid ${disabled ? "#e8e8e8" : isReset ? "#ffcccc" : "#ffaaaa"}`;
@@ -237,10 +252,10 @@
       }
 
       const noSelection = !selectedPiece;
-      sideBtnStyle(rotateLeftBtn, noSelection);
-      sideBtnStyle(rotateRightBtn, noSelection);
-      sideBtnStyle(flipBtn, noSelection);
-      sideBtnStyle(resetBtn, false, true);
+      styleButton(rotateLeftBtn, noSelection);
+      styleButton(rotateRightBtn, noSelection);
+      styleButton(flipBtn, noSelection);
+      styleButton(resetBtn, false, true);
     }
 
     function render() {
@@ -322,6 +337,7 @@
     }
 
     function stopDrag() {
+      if (!state.dragging) return;
       state.dragging = null;
       render();
     }
